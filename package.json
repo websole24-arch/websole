@@ -1,0 +1,13 @@
+{
+  "name": "international-web-design-platform",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix server && npm install --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "seed": "npm run seed --prefix server",
+    "db:migrate": "npm run db:migrate --prefix server",
+    "test:server": "npm test --prefix server",
+    "build:client": "npm run build --prefix client"
+  }
+}

@@ -1,0 +1,386 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* RGB triplets, not hex — required by tailwind.config.js's
+       rgb(var(--x) / <alpha-value>) pattern so opacity modifiers like
+       bg-ink/10 keep working. */
+    --color-ink: 18 20 28;       /* #12141C */
+    --color-paper: 247 247 243;  /* #F7F7F3 */
+    --color-muted-light: 91 95 99; /* #5B5F63 */
+  }
+
+  html.dark {
+    /* Tells the browser to render native controls — <select> dropdown
+       popups, scrollbars, date pickers — in dark theme. Without this,
+       the OS renders option lists with its default light background,
+       and our light-mode-authored text color (near-white in dark mode)
+       becomes invisible against it. */
+    color-scheme: dark;
+
+    /* A direct swap of ink/paper's light-mode values — guarantees the
+       same contrast ratio that already worked in light mode, and
+       matches the site's existing hardcoded "always dark" panels
+       (sidebar, hero accent cards, etc.), which use this exact #12141C
+       literally — so toggling to dark mode doesn't introduce a
+       different, mismatched shade of "dark" next to those. */
+    --color-ink: 247 247 243;    /* was paper's light value */
+    --color-paper: 18 20 28;     /* was ink's light value */
+    /* Reuses muted.dark's existing literal value — that token was
+       already designed as "the lighter of the two muted grays for a
+       dark surface", which is exactly what muted-light needs to become
+       here. */
+    --color-muted-light: 155 160 168; /* #9BA0A8 */
+  }
+
+  body {
+    background: radial-gradient(circle at 10% 20%, rgba(235, 238, 255, 0.7) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 238, 232, 0.7) 0%, transparent 40%),
+                linear-gradient(160deg, #FBFBF9 0%, #F5F6FA 40%, #EEF2FE 75%, #E9ECF8 100%);
+    background-attachment: fixed;
+    color: #12141C;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  html.dark body {
+    background: radial-gradient(circle at 10% 20%, rgba(34, 197, 94, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(51, 82, 255, 0.08) 0%, transparent 40%),
+                linear-gradient(160deg, #0E0F15 0%, #12141C 40%, #14161F 75%, #171A24 100%);
+    background-attachment: fixed;
+    color: #F7F7F3;
+  }
+
+  ::selection {
+    background-color: #22C55E;
+    color: #FFFFFF;
+  }
+
+  /* Native <option> popups are OS-rendered and ignore the <select>'s
+     Tailwind background/opacity classes — browsers default them to a
+     solid white dropdown regardless of page theme, which reads as
+     near-invisible light-gray-on-white in dark mode. color/background
+     -color are the properties browsers actually respect on <option>. */
+  html.dark select option {
+    background-color: #1c1f2a;
+    color: #F7F7F3;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(18, 20, 28, 0.03);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(34, 197, 94, 0.2);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 197, 94, 0.4);
+  }
+
+  html.dark ::-webkit-scrollbar-track {
+    background: rgba(247, 247, 243, 0.05);
+  }
+}
+
+@layer utilities {
+  /* Modern Glassmorphism effects */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px -10px rgba(18, 20, 28, 0.06), 0 1px 3px rgba(18, 20, 28, 0.02);
+  }
+
+  html.dark .glass-card {
+    background: rgba(30, 32, 42, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  .glass-card-hover {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .glass-card-hover:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(34, 197, 94, 0.3);
+    box-shadow: 0 20px 40px -15px rgba(34, 197, 94, 0.12), 0 1px 3px rgba(18, 20, 28, 0.04);
+  }
+
+  html.dark .glass-card-hover:hover {
+    background: rgba(30, 32, 42, 0.9);
+    box-shadow: 0 20px 40px -15px rgba(34, 197, 94, 0.2), 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .glass-nav {
+    background: rgba(251, 251, 249, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(18, 20, 28, 0.06);
+  }
+
+  html.dark .glass-nav {
+    background: rgba(14, 15, 21, 0.82);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Deliberately NOT theme-varied — used throughout the site as a
+     permanently-dark accent panel regardless of page theme (see the
+     literal-color fixes made alongside the dark-mode rollout, e.g.
+     PriceExplorer.jsx, TechStack.jsx), so it should look identical in
+     both light and dark mode. */
+  .glass-dark {
+    background: rgba(18, 20, 28, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(18, 20, 28, 0.08);
+  }
+
+  html.dark .glass-pill {
+    background: rgba(30, 32, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Animated Gradient Text — left as its fixed light-mode-tuned colors
+     on purpose. It's used sparingly as a specific brand accent (see
+     GradientText.jsx's 'brand' variant), not as general body/heading
+     text, and #12141C as its darkest stop already sits on top of a
+     lighter mid-tone (#22C55E) before reaching #3352FF, so it stays
+     legible over both a light and a dark page background without
+     needing a dark-mode variant of its own. */
+  .gradient-text {
+    background: linear-gradient(135deg, #12141C 0%, #22C55E 50%, #3352FF 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 6s ease infinite;
+  }
+
+  .gradient-text-signal {
+    background: linear-gradient(135deg, #22C55E 0%, #6366F1 50%, #3352FF 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-coral {
+    background: linear-gradient(135deg, #3352FF 0%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Ambient light glow and mesh background */
+  .glow-signal {
+    box-shadow: 0 0 50px -10px rgba(34, 197, 94, 0.35);
+  }
+
+  .glow-coral {
+    box-shadow: 0 0 50px -10px rgba(51, 82, 255, 0.3);
+  }
+
+  /* Subtle dot grid pattern */
+  .bg-dot-pattern {
+    background-image: radial-gradient(rgba(18, 20, 28, 0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  html.dark .bg-dot-pattern {
+    background-image: radial-gradient(rgba(247, 247, 243, 0.08) 1px, transparent 1px);
+  }
+
+  .bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(18, 20, 28, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(18, 20, 28, 0.03) 1px, transparent 1px);
+  }
+
+  html.dark .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, rgba(247, 247, 243, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(247, 247, 243, 0.04) 1px, transparent 1px);
+  }
+
+  /* Gradient border wrap */
+  .gradient-border-box {
+    position: relative;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(51, 82, 255, 0.2));
+    padding: 1px;
+  }
+
+  .gradient-border-inner {
+    border-radius: 17px;
+    background: #FFFFFF;
+  }
+
+  /* Shimmer button highlight */
+  .shimmer-badge {
+    background: linear-gradient(90deg, rgba(51,82,255,0.08) 0%, rgba(51,82,255,0.2) 50%, rgba(51,82,255,0.08) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes text-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@keyframes progress-indeterminate {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(0.98); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-text-shimmer {
+  animation: text-shimmer 4s ease-in-out infinite;
+}
+
+.animate-progress-indeterminate {
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Scroll-triggered motion variants */
+.reveal-3d {
+  opacity: 0;
+  transform: perspective(1200px) translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-3d.is-visible {
+  opacity: 1;
+  transform: perspective(1200px) translateY(0);
+}
+
+.reveal-fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-fade-down {
+  opacity: 0;
+  transform: translateY(-24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-fade-down.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-fade-left {
+  opacity: 0;
+  transform: translateX(28px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-fade-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-fade-right {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-fade-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale-up {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-scale-up.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.reveal-blur-in {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(12px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, filter, transform;
+}
+.reveal-blur-in.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* Pointer-following 3D tilt */
+.tilt {
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}

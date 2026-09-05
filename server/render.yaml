@@ -1,0 +1,19 @@
+# Render alternative to railway.toml. Only used if you deploy the server
+# on Render instead of Railway — Render auto-detects this file at the repo
+# root, but since this is a monorepo (server/ is a subdirectory, not the
+# repo root), set "Root Directory: server" in the Render dashboard too, or
+# move this file to the repo root before deploying there.
+services:
+  - type: web
+    name: webplatform-api
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Everything else (DATABASE_URL, SUPABASE_*, STRIPE_*, CLIENT_ORIGIN,
+      # SUPABASE_STORAGE_BUCKET) is secret/per-deploy — set these in the
+      # Render dashboard, not here. See DEPLOYMENT.md.
