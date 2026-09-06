@@ -5,7 +5,7 @@ import WhatsAppButton from '../components/common/WhatsAppButton';
 import BusinessContactCard from '../components/common/BusinessContactCard';
 import BusinessMap from '../components/common/BusinessMap';
 import { useCountry } from '../context/CountryContext';
-import { validateContact } from '../utils/validators';
+import { validateContact, MAX_LENGTHS } from '../utils/validators';
 import { COUNTRIES } from '../utils/countries';
 import FieldError, { fieldClass } from '../components/common/FieldError';
 import Reveal from '../components/common/Reveal';
@@ -58,8 +58,8 @@ export default function Contact() {
     const fieldErrors = validateContact(form);
     setErrors(fieldErrors);
     setTouched({
-      name: true, email: true, whatsapp: true, service: true,
-      description: true, referenceWebsite: true, preferredDeadline: true,
+      name: true, email: true, whatsapp: true, country: true, service: true,
+      budget: true, description: true, referenceWebsite: true, preferredDeadline: true,
     });
     if (Object.keys(fieldErrors).length > 0) return;
 
@@ -134,18 +134,18 @@ export default function Contact() {
           <form onSubmit={handleSubmit} noValidate className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <input placeholder="Full Name *" {...field('name')} />
+                <input placeholder="Full Name *" maxLength={MAX_LENGTHS.name} {...field('name')} />
                 {touched.name && <FieldError>{errors.name}</FieldError>}
               </div>
               <div>
-                <input type="email" placeholder="Email Address *" {...field('email')} />
+                <input type="email" placeholder="Email Address *" maxLength={MAX_LENGTHS.email} {...field('email')} />
                 {touched.email && <FieldError>{errors.email}</FieldError>}
               </div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <input placeholder="WhatsApp Number *" {...field('whatsapp')} />
+                <input placeholder="WhatsApp Number *" maxLength={MAX_LENGTHS.whatsapp} {...field('whatsapp')} />
                 {touched.whatsapp && <FieldError>{errors.whatsapp}</FieldError>}
               </div>
               <div>
@@ -153,12 +153,15 @@ export default function Contact() {
                   name="country"
                   value={form.country}
                   onChange={handleChange}
-                  className="w-full rounded-xl border border-ink/15 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-3 text-sm text-ink focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
+                  onBlur={handleBlur}
+                  aria-invalid={Boolean(touched.country && errors.country)}
+                  className={`${fieldClass(touched.country && errors.country)} bg-white/80 dark:bg-white/5 text-ink`}
                   style={form.country ? undefined : { color: '#8a8a8a' }}
                 >
                   <option value="" disabled hidden>Country *</option>
                   {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
+                {touched.country && <FieldError>{errors.country}</FieldError>}
               </div>
             </div>
 
@@ -173,10 +176,14 @@ export default function Contact() {
                 <input
                   name="budget"
                   placeholder="Approximate Budget (optional)"
+                  maxLength={MAX_LENGTHS.budget}
                   value={form.budget}
                   onChange={handleChange}
-                  className="w-full rounded-xl border border-ink/15 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-3 text-sm text-ink placeholder:text-muted-light focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
+                  onBlur={handleBlur}
+                  aria-invalid={Boolean(touched.budget && errors.budget)}
+                  className={`${fieldClass(touched.budget && errors.budget)} bg-white/80 dark:bg-white/5 text-ink placeholder:text-muted-light`}
                 />
+                {touched.budget && <FieldError>{errors.budget}</FieldError>}
               </div>
             </div>
 
@@ -184,14 +191,20 @@ export default function Contact() {
               <textarea
                 placeholder="Project Description — tell us about your goals, features, and target audience (at least 20 characters) *"
                 rows={4}
+                maxLength={MAX_LENGTHS.description}
                 {...field('description')}
               />
-              {touched.description && <FieldError>{errors.description}</FieldError>}
+              <div className="mt-1 flex items-center justify-between">
+                {touched.description ? <FieldError>{errors.description}</FieldError> : <span />}
+                <span className="text-[11px] text-muted-light">
+                  {form.description.length}/{MAX_LENGTHS.description}
+                </span>
+              </div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <input placeholder="Reference Website (optional)" {...field('referenceWebsite')} />
+                <input placeholder="Reference Website (optional)" maxLength={MAX_LENGTHS.referenceWebsite} {...field('referenceWebsite')} />
                 {touched.referenceWebsite && <FieldError>{errors.referenceWebsite}</FieldError>}
               </div>
               <div>

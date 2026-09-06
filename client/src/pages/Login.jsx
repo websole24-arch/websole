@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import client from '../api/client';
-import { validateLogin } from '../utils/validators';
+import { validateLogin, MAX_LENGTHS } from '../utils/validators';
 import FieldError, { fieldClass } from '../components/common/FieldError';
 import Reveal from '../components/common/Reveal';
 import { CloseIcon, MailIcon } from '../components/common/Icon';
@@ -222,6 +222,7 @@ export default function Login() {
                 type="email"
                 name="email"
                 placeholder="name@company.com"
+                maxLength={MAX_LENGTHS.email}
                 value={form.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -248,6 +249,7 @@ export default function Login() {
                   type="password"
                   name="password"
                   placeholder="••••••••"
+                  maxLength={MAX_LENGTHS.password}
                   value={form.password}
                   onChange={handleChange}
                   onBlur={handleBlur}

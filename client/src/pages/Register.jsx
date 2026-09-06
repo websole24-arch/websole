@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCountry } from '../context/CountryContext';
-import { validateRegister } from '../utils/validators';
+import { validateRegister, MAX_LENGTHS } from '../utils/validators';
 import { COUNTRIES } from '../utils/countries';
 import FieldError, { fieldClass } from '../components/common/FieldError';
 import Reveal from '../components/common/Reveal';
@@ -60,7 +60,7 @@ export default function Register() {
 
     const fieldErrors = validateRegister(form);
     setErrors(fieldErrors);
-    setTouched({ name: true, email: true, password: true, phone: true });
+    setTouched({ name: true, email: true, password: true, phone: true, country: true, companyName: true });
     if (Object.keys(fieldErrors).length > 0) return;
 
     setLoading(true);
@@ -167,7 +167,7 @@ export default function Register() {
             <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
               Full Name *
             </label>
-            <input placeholder="Alex Mercer" {...field('name')} />
+            <input placeholder="Alex Mercer" maxLength={MAX_LENGTHS.name} {...field('name')} />
             {touched.name && <FieldError>{errors.name}</FieldError>}
           </div>
 
@@ -175,7 +175,7 @@ export default function Register() {
             <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
               Email Address *
             </label>
-            <input type="email" placeholder="alex@company.com" {...field('email')} />
+            <input type="email" placeholder="alex@company.com" maxLength={MAX_LENGTHS.email} {...field('email')} />
             {touched.email && <FieldError>{errors.email}</FieldError>}
           </div>
 
@@ -183,7 +183,7 @@ export default function Register() {
             <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
               Password (min 8 chars, with a number) *
             </label>
-            <input type="password" placeholder="••••••••" {...field('password')} />
+            <input type="password" placeholder="••••••••" maxLength={MAX_LENGTHS.password} {...field('password')} />
             {touched.password && <FieldError>{errors.password}</FieldError>}
           </div>
 
@@ -192,7 +192,7 @@ export default function Register() {
               <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
                 Phone / WhatsApp *
               </label>
-              <input placeholder="+1 (555) 000-0000" {...field('phone')} />
+              <input placeholder="+1 (555) 000-0000" maxLength={MAX_LENGTHS.phone} {...field('phone')} />
               {touched.phone && <FieldError>{errors.phone}</FieldError>}
             </div>
 
@@ -204,12 +204,15 @@ export default function Register() {
                 name="country"
                 value={form.country}
                 onChange={handleChange}
-                className="w-full rounded-xl border border-ink/15 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-3 text-sm text-ink focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
+                onBlur={handleBlur}
+                aria-invalid={Boolean(touched.country && errors.country)}
+                className={`${fieldClass(touched.country && errors.country)} bg-white/80 dark:bg-white/5 text-ink`}
                 style={form.country ? undefined : { color: '#8a8a8a' }}
               >
                 <option value="" disabled hidden>Select Country</option>
                 {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
+              {touched.country && <FieldError>{errors.country}</FieldError>}
             </div>
           </div>
 
@@ -220,10 +223,14 @@ export default function Register() {
             <input
               name="companyName"
               placeholder="Acme Corp"
+              maxLength={MAX_LENGTHS.companyName}
               value={form.companyName}
               onChange={handleChange}
-              className="w-full rounded-xl border border-ink/15 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-3 text-sm text-ink placeholder:text-muted-light focus:border-signal focus:outline-none focus:ring-1 focus:ring-signal"
+              onBlur={handleBlur}
+              aria-invalid={Boolean(touched.companyName && errors.companyName)}
+              className={`${fieldClass(touched.companyName && errors.companyName)} bg-white/80 dark:bg-white/5 text-ink placeholder:text-muted-light`}
             />
+            {touched.companyName && <FieldError>{errors.companyName}</FieldError>}
           </div>
 
           {error && (
