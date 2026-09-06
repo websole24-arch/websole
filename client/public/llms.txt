@@ -1,0 +1,21 @@
+# Studio
+
+> Custom website development, UI/UX design, WordPress, Wix, and graphic
+> design services, with transparent, country-specific pricing.
+
+## Services
+- [All Services](https://websole-delta.vercel.app/services): Overview of every service offered.
+- [Custom Website Development](https://websole-delta.vercel.app/custom-website-development)
+- [UI/UX Design](https://websole-delta.vercel.app/ui-ux-design)
+- [WordPress Development](https://websole-delta.vercel.app/wordpress-development)
+- [Wix Development](https://websole-delta.vercel.app/wix-development)
+- [Graphic Design](https://websole-delta.vercel.app/graphic-design)
+
+## Pricing & Work
+- [Pricing](https://websole-delta.vercel.app/pricing): Country-specific package pricing.
+- [Portfolio](https://websole-delta.vercel.app/portfolio): Past project case studies.
+
+## Company
+- [About](https://websole-delta.vercel.app/about)
+- [FAQ](https://websole-delta.vercel.app/faq)
+- [Contact](https://websole-delta.vercel.app/contact): Project inquiry form.

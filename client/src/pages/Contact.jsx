@@ -151,12 +151,12 @@ export default function Contact() {
               <div>
                 <select
                   name="country"
+                  aria-label="Country"
                   value={form.country}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   aria-invalid={Boolean(touched.country && errors.country)}
-                  className={`${fieldClass(touched.country && errors.country)} bg-white/80 dark:bg-white/5 text-ink`}
-                  style={form.country ? undefined : { color: '#8a8a8a' }}
+                  className={`${fieldClass(touched.country && errors.country)} bg-white/80 dark:bg-white/5 ${form.country ? 'text-ink' : 'text-muted-light'}`}
                 >
                   <option value="" disabled hidden>Country *</option>
                   {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -167,7 +167,7 @@ export default function Contact() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <select {...field('service')}>
+                <select aria-label="Service" {...field('service')}>
                   {SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
                 {touched.service && <FieldError>{errors.service}</FieldError>}

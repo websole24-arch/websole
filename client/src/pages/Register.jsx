@@ -164,50 +164,50 @@ export default function Register() {
 
         <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-4">
           <div>
-            <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
+            <label htmlFor="register-name" className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
               Full Name *
             </label>
-            <input placeholder="Alex Mercer" maxLength={MAX_LENGTHS.name} {...field('name')} />
+            <input id="register-name" placeholder="Alex Mercer" maxLength={MAX_LENGTHS.name} {...field('name')} />
             {touched.name && <FieldError>{errors.name}</FieldError>}
           </div>
 
           <div>
-            <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
+            <label htmlFor="register-email" className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
               Email Address *
             </label>
-            <input type="email" placeholder="alex@company.com" maxLength={MAX_LENGTHS.email} {...field('email')} />
+            <input id="register-email" type="email" placeholder="alex@company.com" maxLength={MAX_LENGTHS.email} {...field('email')} />
             {touched.email && <FieldError>{errors.email}</FieldError>}
           </div>
 
           <div>
-            <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
+            <label htmlFor="register-password" className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
               Password (min 8 chars, with a number) *
             </label>
-            <input type="password" placeholder="••••••••" maxLength={MAX_LENGTHS.password} {...field('password')} />
+            <input id="register-password" type="password" placeholder="••••••••" maxLength={MAX_LENGTHS.password} {...field('password')} />
             {touched.password && <FieldError>{errors.password}</FieldError>}
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
+              <label htmlFor="register-phone" className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
                 Phone / WhatsApp *
               </label>
-              <input placeholder="+1 (555) 000-0000" maxLength={MAX_LENGTHS.phone} {...field('phone')} />
+              <input id="register-phone" placeholder="+1 (555) 000-0000" maxLength={MAX_LENGTHS.phone} {...field('phone')} />
               {touched.phone && <FieldError>{errors.phone}</FieldError>}
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
+              <label htmlFor="register-country" className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
                 Country *
               </label>
               <select
+                id="register-country"
                 name="country"
                 value={form.country}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 aria-invalid={Boolean(touched.country && errors.country)}
-                className={`${fieldClass(touched.country && errors.country)} bg-white/80 dark:bg-white/5 text-ink`}
-                style={form.country ? undefined : { color: '#8a8a8a' }}
+                className={`${fieldClass(touched.country && errors.country)} bg-white/80 dark:bg-white/5 ${form.country ? 'text-ink' : 'text-muted-light'}`}
               >
                 <option value="" disabled hidden>Select Country</option>
                 {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -217,10 +217,11 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
+            <label htmlFor="register-company" className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
               Company Name (Optional)
             </label>
             <input
+              id="register-company"
               name="companyName"
               placeholder="Acme Corp"
               maxLength={MAX_LENGTHS.companyName}

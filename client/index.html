@@ -5,9 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Studio — Websites, UI/UX &amp; Design, priced for your country</title>
     <meta name="description" content="Custom website development, UI/UX design, WordPress, Wix, and graphic design services with transparent, country-specific pricing." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- Loaded non-render-blocking: fetched at low priority in parallel
+         with everything else, then swapped to a real stylesheet once it
+         arrives (rel="preload" + onload). The <noscript> tag is the
+         fallback for the rare case JS is disabled. This was previously a
+         plain rel="stylesheet" link, which blocks first paint on this
+         third-party request (~1.5s of the "render-blocking requests"
+         flagged by Lighthouse). -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>

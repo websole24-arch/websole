@@ -215,10 +215,11 @@ export default function Login() {
         ) : (
           <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-4">
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
+              <label htmlFor="login-email" className="block text-xs font-mono uppercase tracking-wider text-ink/70 mb-1.5">
                 Email Address
               </label>
               <input
+                id="login-email"
                 type="email"
                 name="email"
                 placeholder="name@company.com"
@@ -235,7 +236,7 @@ export default function Login() {
             {mode === 'password' && (
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-mono uppercase tracking-wider text-ink/70">
+                  <label htmlFor="login-password" className="block text-xs font-mono uppercase tracking-wider text-ink/70">
                     Password
                   </label>
                   <Link
@@ -246,6 +247,7 @@ export default function Login() {
                   </Link>
                 </div>
                 <input
+                  id="login-password"
                   type="password"
                   name="password"
                   placeholder="••••••••"

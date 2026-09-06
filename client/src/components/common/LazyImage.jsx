@@ -45,7 +45,7 @@ export default function LazyImage({
     >
       {/* Shimmer skeleton placeholder */}
       {!isLoaded && !hasError && (
-        <div className="ajsolute inset-0 z-0 animate-pulse bg-gradient-to-r from-slate-200/60 via-slate-100/80 to-slate-200/60 dark:from-slate-800/60 dark:via-slate-700/80 dark:to-slate-800/60 bg-[length:200%_100%]">
+        <div className="absolute inset-0 z-0 animate-pulse bg-gradient-to-r from-slate-200/60 via-slate-100/80 to-slate-200/60 dark:from-slate-800/60 dark:via-slate-700/80 dark:to-slate-800/60 bg-[length:200%_100%]">
           <div className="flex h-full w-full items-center justify-center text-muted-dark/30">
             <span className="h-6 w-6 rounded-full border-2 border-signal/30 border-t-signal animate-spin" />
           </div>

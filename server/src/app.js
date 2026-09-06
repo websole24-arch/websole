@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
+const compression = require('compression');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const hpp = require('hpp');
@@ -69,6 +70,11 @@ const corsOptionsDelegate = (origin, callback) => {
 };
 
 app.use(helmet());
+// gzip/brotli-compress JSON and any other response bodies. Mounted before
+// the Stripe webhook route too, but that's harmless: compression only acts
+// on responses (res.send/json), and the webhook's raw-body requirement is
+// about the incoming request, which this middleware never touches.
+app.use(compression());
 app.use(
   cors({
     origin: corsOptionsDelegate,

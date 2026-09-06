@@ -21,6 +21,20 @@ export default function Layout({ children }) {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [location.pathname]);
 
+  // The site is a client-rendered SPA with one static index.html, so
+  // there's no per-route canonical tag out of the box — every route was
+  // being crawled with no canonical at all. Keep a single <link
+  // rel="canonical"> in <head> in sync with the current path instead.
+  useEffect(() => {
+    let link = document.querySelector('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      document.head.appendChild(link);
+    }
+    link.setAttribute('href', `${window.location.origin}${location.pathname}`);
+  }, [location.pathname]);
+
   if (isAdminRoute) {
     return <div className="min-h-screen bg-paper font-sans text-ink">{children}</div>;
   }
