@@ -22,7 +22,7 @@ export default function ServiceCard({ service, index = 0 }) {
         <div>
           <div className="flex items-center justify-between">
             <span className="grid h-12 w-12 place-items-center rounded-xl bg-signal/10 text-signal transition-all duration-300 group-hover:bg-signal group-hover:text-white group-hover:scale-110 shadow-xs">
-              <ServiceIcon slug={service.slug} className="h-6 w-6" />
+              <ServiceIcon slug={service.slug} icon={service.icon} className="h-6 w-6" />
             </span>
             <span className="font-mono text-xs text-muted-dark group-hover:text-signal transition-colors">
               0{index + 1}

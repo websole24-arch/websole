@@ -14,7 +14,7 @@ const COLUMNS_POPULATED = `
   cp.id, cp.country, cp.country_code as "countryCode", cp.currency,
   cp.service_id as "service", cp.package_id as "package", cp.price, cp.active,
   cp.created_at as "createdAt", cp.updated_at as "updatedAt",
-  json_build_object('_id', s.id, 'id', s.id, 'name', s.name, 'slug', s.slug) as "serviceRef",
+  json_build_object('_id', s.id, 'id', s.id, 'name', s.name, 'slug', s.slug, 'icon', s.icon) as "serviceRef",
   json_build_object('_id', pk.id, 'id', pk.id, 'name', pk.name, 'features', pk.features) as "packageRef"
 `;
 

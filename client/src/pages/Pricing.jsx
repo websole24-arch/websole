@@ -84,7 +84,7 @@ export default function Pricing() {
 
   const byService = pricing.reduce((acc, p) => {
     const key = p.service?.name || 'Other';
-    if (!acc[key]) acc[key] = { slug: p.service?.slug, entries: [] };
+    if (!acc[key]) acc[key] = { slug: p.service?.slug, icon: p.service?.icon, entries: [] };
     acc[key].entries.push(p);
     return acc;
   }, {});
@@ -119,13 +119,13 @@ export default function Pricing() {
 
       {services.length > 1 && (
         <nav aria-label="Jump to service pricing" className="mt-4 flex flex-wrap justify-center gap-2">
-          {services.map(([name, { slug }]) => (
+          {services.map(([name, { slug, icon }]) => (
             <a
               key={name}
               href={`#${slug || name}`}
               className="inline-flex items-center gap-2 rounded-full glass-card px-4 py-2 text-xs font-medium text-ink/80 transition-all hover:border-signal/40 hover:text-signal hover:shadow-xs"
             >
-              <ServiceIcon slug={slug} className="h-3.5 w-3.5" />
+              <ServiceIcon slug={slug} icon={icon} className="h-3.5 w-3.5" />
               <span>{name}</span>
             </a>
           ))}
@@ -139,7 +139,7 @@ export default function Pricing() {
         </div>
       )}
 
-      {services.map(([serviceName, { slug, entries }]) => {
+      {services.map(([serviceName, { slug, icon, entries }]) => {
         const sorted = entries.slice().sort((a, b) => a.price - b.price);
         const recommendedId = sorted.length >= 3 ? sorted[1].id : null;
 
@@ -147,7 +147,7 @@ export default function Pricing() {
           <div key={serviceName} id={slug || serviceName} className="mt-20 scroll-mt-28">
             <div className="flex items-center gap-3 border-b border-ink/10 pb-4">
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-signal/10 text-signal">
-                <ServiceIcon slug={slug} className="h-5 w-5" />
+                <ServiceIcon slug={slug} icon={icon} className="h-5 w-5" />
               </span>
               <div>
                 <h2 className="font-display text-2xl font-bold text-ink">{serviceName}</h2>

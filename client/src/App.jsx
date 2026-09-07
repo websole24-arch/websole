@@ -28,14 +28,6 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const Dashboard = lazy(() => import('./pages/customer/Dashboard'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 
-const SERVICE_SLUGS = [
-  'custom-website-development',
-  'ui-ux-design',
-  'wordpress-development',
-  'wix-development',
-  'graphic-design',
-];
-
 export default function App() {
   return (
     <Layout>
@@ -43,9 +35,20 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
-          {SERVICE_SLUGS.map((slug) => (
-            <Route key={slug} path={`/${slug}`} element={<ServiceDetail slug={slug} />} />
-          ))}
+          {/* Used to be a hardcoded list of <Route> entries, one per known
+              service slug — every service card/link on the site already
+              points at `/${slug}` (see Services.jsx, ServiceCard.jsx), so a
+              service added later (admin panel or straight into the DB)
+              rendered a working card that linked to a URL with no matching
+              route, falling through to the catch-all `*` -> NotFound below.
+              A single dynamic segment fixes that for any current or future
+              service without a code change. React Router v6 always ranks an
+              exact static segment (e.g. "/pricing", "/about") above a
+              dynamic one for the same slot, so this can't shadow any of the
+              other top-level routes below. ServiceDetail resolves the slug
+              itself via useParams() and already renders its own friendly
+              "Service not found" card for a slug with no matching service. */}
+          <Route path="/:slug" element={<ServiceDetail />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/about" element={<About />} />

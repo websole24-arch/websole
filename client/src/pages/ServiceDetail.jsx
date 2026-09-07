@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import client from '../api/client';
 import Reveal from '../components/common/Reveal';
 import ServiceIcon from '../components/common/ServiceIcon';
@@ -8,10 +8,14 @@ import WhatsAppButton from '../components/common/WhatsAppButton';
 import AdvancePaymentNotice from '../components/common/AdvancePaymentNotice';
 import { CheckMarkIcon } from '../components/common/Icon';
 
-export default function ServiceDetail({ slug }) {
+export default function ServiceDetail() {
+  // Routed at /:slug (see App.jsx) rather than passed as a prop, so any
+  // service slug — including ones added after this app was built — reaches
+  // this component and gets a real lookup against the API instead of
+  // hitting the site-wide 404.
+  const { slug } = useParams();
   const [service, setService] = useState(null);
   const [status, setStatus] = useState('loading');
-  const navigate = useNavigate();
 
   useEffect(() => {
     setStatus('loading');
@@ -69,7 +73,7 @@ export default function ServiceDetail({ slug }) {
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
           <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-signal to-indigo-600 text-white shadow-lg shadow-signal/25">
-            <ServiceIcon slug={service.slug} className="h-10 w-10" />
+            <ServiceIcon slug={service.slug} icon={service.icon} className="h-10 w-10" />
           </div>
           <div>
             <span className="inline-block rounded-full bg-signal-soft px-3 py-1 text-xs font-mono font-semibold text-signal uppercase tracking-wider">

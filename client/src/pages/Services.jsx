@@ -52,7 +52,7 @@ export default function Services() {
               <div>
                 <div className="flex items-center justify-between">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-signal/10 text-signal shadow-xs transition-transform duration-300 group-hover:scale-110 group-hover:bg-signal group-hover:text-white">
-                    <ServiceIcon slug={s.slug} className="h-7 w-7" />
+                    <ServiceIcon slug={s.slug} icon={s.icon} className="h-7 w-7" />
                   </div>
                   <span className="font-mono text-xs font-bold text-muted-dark group-hover:text-signal transition-colors">
                     0{i + 1}

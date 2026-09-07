@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import client from '../../../api/client';
 import { describeApiError } from '../../../utils/apiError';
 import useAdminCrud from '../useAdminCrud';
+import ServiceIcon, { ICON_OPTIONS } from '../../../components/common/ServiceIcon';
 import {
   SectionCard, Field, Pill, Loading, ErrorNote, EmptyState,
   inputClass, btnPrimary, btnGhost, btnDanger,
@@ -65,6 +66,19 @@ function ServiceForm({ initial, submitLabel, onSubmit, onCancel }) {
       </Field>
       <Field label="Slug">
         <input required value={form.slug} onChange={set('slug')} className={inputClass} placeholder="custom-website-development" />
+      </Field>
+      <Field label="Icon">
+        <div className="flex items-center gap-2">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-signal/10 text-signal">
+            <ServiceIcon icon={form.icon} slug={form.slug} className="h-4 w-4" />
+          </span>
+          <select value={form.icon} onChange={set('icon')} className={inputClass}>
+            <option value="">Choose an icon…</option>
+            {ICON_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+        </div>
       </Field>
       <Field label="Short description" className="sm:col-span-2">
         <input required value={form.shortDescription} onChange={set('shortDescription')} className={inputClass} />
