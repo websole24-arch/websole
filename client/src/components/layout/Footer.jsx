@@ -106,10 +106,10 @@ export default function Footer() {
           <div className="space-y-4">
             <Link to="/" className="inline-flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#12141C] to-slate-800 text-white shadow-sm">
-                <span className="font-display font-bold text-sm tracking-tight text-white">S</span>
+                <span className="font-display font-bold text-sm tracking-tight text-white">W</span>
               </div>
               <span className="font-display text-xl font-bold tracking-tight text-ink">
-                Studio<span className="text-signal">.</span>
+                websole<span className="text-signal">.</span>
               </span>
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-muted-light">
