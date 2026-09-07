@@ -151,6 +151,7 @@ export default function PricingTab() {
   const [services, setServices] = useState([]);
   const [packages, setPackages] = useState([]);
   const [countryFilter, setCountryFilter] = useState('all');
+  const [serviceFilter, setServiceFilter] = useState('all');
 
   const {
     error, setError, creating, setCreating, editingId, setEditingId, create, update, remove,
@@ -187,7 +188,9 @@ export default function PricingTab() {
   }
 
   const countries = [...new Set(pricing.map((p) => p.country))].sort();
-  const visible = countryFilter === 'all' ? pricing : pricing.filter((p) => p.country === countryFilter);
+  const visible = pricing
+    .filter((p) => countryFilter === 'all' || p.country === countryFilter)
+    .filter((p) => serviceFilter === 'all' || (p.service?.id || p.service) === serviceFilter);
 
   return (
     <SectionCard
@@ -197,6 +200,10 @@ export default function PricingTab() {
           <select value={countryFilter} onChange={(e) => setCountryFilter(e.target.value)} className={`${inputClass} w-auto`}>
             <option value="all">All countries</option>
             {countries.map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
+          <select value={serviceFilter} onChange={(e) => setServiceFilter(e.target.value)} className={`${inputClass} w-auto`}>
+            <option value="all">All services</option>
+            {services.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
           </select>
           {!creating && (
             <button type="button" onClick={() => setCreating(true)} className={btnPrimary}>
