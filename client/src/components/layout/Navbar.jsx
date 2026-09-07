@@ -29,11 +29,11 @@ function Logo() {
   return (
     <Link to="/" onClick={handleClick} className="group flex items-center gap-3">
       <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#12141C] to-slate-800 text-white shadow-md transition-all duration-300 group-hover:scale-105 group-hover:shadow-signal/25">
-        <span className="font-display font-bold text-sm tracking-tight text-white">W</span>
+        <span className="font-display font-bold text-sm tracking-tight text-white">S</span>
         <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-signal ring-2 ring-white" />
       </div>
       <span className="font-display text-xl font-bold tracking-tight text-ink transition-colors group-hover:text-signal">
-        Web_Sole<span className="text-signal">.</span>
+        Studio<span className="text-signal">.</span>
       </span>
     </Link>
   );

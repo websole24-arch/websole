@@ -73,10 +73,10 @@ export default function Blog() {
   }
 
   return (
-    <section className="mx-auto max-w-5xl overflow-x-hidden px-4 py-10 sm:py-16">
+    <section className="w-full overflow-x-hidden px-4 py-10 sm:px-6 sm:py-16">
       <h1 className="font-display text-3xl">Blog</h1>
 
-      <div className="relative mt-6 h-[75vh] min-h-[500px] w-full max-w-full overflow-hidden rounded-2xl border border-ink/10">
+      <div className="relative mt-6 h-[calc(100vh-180px)] min-h-[700px] w-full max-w-full overflow-hidden rounded-2xl border border-ink/10">
         <iframe
           title="Blog"
           src={blogUrl}
