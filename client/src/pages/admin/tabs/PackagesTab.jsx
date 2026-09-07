@@ -101,6 +101,7 @@ function PackageForm({ initial, services, submitLabel, onSubmit, onCancel }) {
 export default function PackagesTab() {
   const [packages, setPackages] = useState(null);
   const [services, setServices] = useState([]);
+  const [serviceFilter, setServiceFilter] = useState('all');
 
   const {
     error, setError, creating, setCreating, editingId, setEditingId, create, update, remove,
@@ -134,15 +135,25 @@ export default function PackagesTab() {
     return <EmptyState>Add a service first — packages belong to a service.</EmptyState>;
   }
 
+  const visible = serviceFilter === 'all'
+    ? packages
+    : packages.filter((p) => (p.service?.id || p.service) === serviceFilter);
+
   return (
     <SectionCard
       title={`Packages (${packages.length})`}
       action={
-        !creating && (
-          <button type="button" onClick={() => setCreating(true)} className={btnPrimary}>
-            + New package
-          </button>
-        )
+        <div className="flex items-center gap-2">
+          <select value={serviceFilter} onChange={(e) => setServiceFilter(e.target.value)} className={`${inputClass} w-auto`}>
+            <option value="all">All services</option>
+            {services.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
+          {!creating && (
+            <button type="button" onClick={() => setCreating(true)} className={btnPrimary}>
+              + New package
+            </button>
+          )}
+        </div>
       }
     >
       {error && <div className="mb-4"><ErrorNote>{error}</ErrorNote></div>}
@@ -160,9 +171,10 @@ export default function PackagesTab() {
       )}
 
       {packages.length === 0 && !creating && <EmptyState>No packages yet.</EmptyState>}
+      {packages.length > 0 && visible.length === 0 && <EmptyState>No packages for this service.</EmptyState>}
 
       <div className="space-y-3">
-        {packages.map((p) =>
+        {visible.map((p) =>
           editingId === p.id ? (
             <PackageForm
               key={p.id}

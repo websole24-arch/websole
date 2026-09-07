@@ -117,6 +117,7 @@ function ServiceForm({ initial, submitLabel, onSubmit, onCancel }) {
 
 export default function ServicesTab() {
   const [services, setServices] = useState(null);
+  const [statusFilter, setStatusFilter] = useState('all');
 
   const {
     error, setError, creating, setCreating, editingId, setEditingId, create, update, remove,
@@ -140,15 +141,28 @@ export default function ServicesTab() {
   if (error && !services) return <ErrorNote onRetry={load}>{error}</ErrorNote>;
   if (!services) return <Loading />;
 
+  const visible = services.filter((s) => {
+    if (statusFilter === 'active') return s.isActive;
+    if (statusFilter === 'inactive') return !s.isActive;
+    return true;
+  });
+
   return (
     <SectionCard
       title={`Services (${services.length})`}
       action={
-        !creating && (
-          <button type="button" onClick={() => setCreating(true)} className={btnPrimary}>
-            + New service
-          </button>
-        )
+        <div className="flex items-center gap-2">
+          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className={`${inputClass} w-auto`}>
+            <option value="all">All statuses</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+          {!creating && (
+            <button type="button" onClick={() => setCreating(true)} className={btnPrimary}>
+              + New service
+            </button>
+          )}
+        </div>
       }
     >
       {error && <div className="mb-4"><ErrorNote>{error}</ErrorNote></div>}
@@ -165,9 +179,10 @@ export default function ServicesTab() {
       )}
 
       {services.length === 0 && !creating && <EmptyState>No services yet.</EmptyState>}
+      {services.length > 0 && visible.length === 0 && <EmptyState>No services match this filter.</EmptyState>}
 
       <div className="space-y-3">
-        {services.map((s) =>
+        {visible.map((s) =>
           editingId === s.id ? (
             <ServiceForm
               key={s.id}

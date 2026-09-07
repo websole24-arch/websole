@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useCountry } from '../context/CountryContext';
 import { useAuth } from '../context/AuthContext';
 import client from '../api/client';
@@ -14,6 +14,7 @@ export default function Pricing() {
   const { country } = useCountry();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [pricing, setPricing] = useState([]);
   const [usedFallback, setUsedFallback] = useState(false);
   const [startingId, setStartingId] = useState(null);
@@ -38,6 +39,20 @@ export default function Pricing() {
         setPricingError(err.response?.data?.message || 'Could not load pricing right now.');
       });
   }, [country]);
+
+  // "Explore Pricing" / "Check Country Rates" on a service page link here
+  // as /pricing#slug. The target section only exists once `pricing` has
+  // loaded and rendered, so the browser's own hash-scroll (which only
+  // fires once, on initial load) misses it — do it ourselves once the
+  // matching section is actually in the DOM.
+  useEffect(() => {
+    if (!location.hash || pricing.length === 0) return;
+    const id = decodeURIComponent(location.hash.slice(1));
+    const raf = requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [location.hash, pricing]);
 
   const startProject = async (entry) => {
     // If not logged in, persist selection and redirect to register.
