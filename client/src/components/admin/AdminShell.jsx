@@ -9,7 +9,7 @@ import ThemeToggle from '../common/ThemeToggle';
 // Layout.jsx), so the dashboard doesn't share nav with the marketing site.
 // `tabs` is [{ id, label, icon }], `active`/`onChange` drive selection —
 // AdminDashboard owns the actual tab state.
-export default function AdminShell({ tabs, active, onChange, children }) {
+export default function AdminShell({ tabs, active, onChange, children, badges = {} }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -39,7 +39,16 @@ export default function AdminShell({ tabs, active, onChange, children }) {
           }`}
         >
           <AdminIcon name={t.icon} className="h-4 w-4 shrink-0" />
-          {t.label}
+          <span className="flex-1">{t.label}</span>
+          {badges[t.id] > 0 && (
+            <span
+              className={`grid h-5 min-w-[1.25rem] shrink-0 place-items-center rounded-full px-1 text-[11px] font-semibold text-white ${
+                active === t.id ? 'bg-white/25' : 'bg-signal'
+              }`}
+            >
+              {badges[t.id]}
+            </span>
+          )}
         </button>
       ))}
     </nav>

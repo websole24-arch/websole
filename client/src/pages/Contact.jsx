@@ -202,15 +202,9 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <input placeholder="Reference Website (optional)" maxLength={MAX_LENGTHS.referenceWebsite} {...field('referenceWebsite')} />
-                {touched.referenceWebsite && <FieldError>{errors.referenceWebsite}</FieldError>}
-              </div>
-              <div>
-                <input type="date" title="Preferred Deadline" {...field('preferredDeadline')} />
-                {touched.preferredDeadline && <FieldError>{errors.preferredDeadline}</FieldError>}
-              </div>
+            <div>
+              <input placeholder="Reference Website (optional)" maxLength={MAX_LENGTHS.referenceWebsite} {...field('referenceWebsite')} />
+              {touched.referenceWebsite && <FieldError>{errors.referenceWebsite}</FieldError>}
             </div>
 
             {error && (

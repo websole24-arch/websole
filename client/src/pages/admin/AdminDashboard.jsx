@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import client from '../../api/client';
 import AdminShell from '../../components/admin/AdminShell';
 import OverviewTab from './tabs/OverviewTab';
 import ProjectsTab from './tabs/ProjectsTab';
@@ -45,10 +46,26 @@ const SUBTITLES = {
 export default function AdminDashboard() {
   const { user } = useAuth();
   const [active, setActive] = useState('overview');
+  const [unreadInquiries, setUnreadInquiries] = useState(0);
   const activeTab = TABS.find((t) => t.id === active);
 
+  // Unread = never opened in the Inquiries tab (viewedAt is null server-side).
+  // InquiriesTab marks rows viewed as it loads them, then calls this to
+  // pull the badge down right away instead of waiting on a tab switch.
+  const refreshUnreadInquiries = useCallback(() => {
+    client
+      .get('/inquiries')
+      .then(({ data }) => {
+        const count = (data.inquiries || []).filter((i) => !i.viewedAt).length;
+        setUnreadInquiries(count);
+      })
+      .catch(() => {}); // sidebar badge is a nice-to-have — fail silently
+  }, []);
+
+  useEffect(() => { refreshUnreadInquiries(); }, [refreshUnreadInquiries]);
+
   return (
-    <AdminShell tabs={TABS} active={active} onChange={setActive}>
+    <AdminShell tabs={TABS} active={active} onChange={setActive} badges={{ inquiries: unreadInquiries }}>
       <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
         <PageHeader
           title={active === 'overview' ? `Hi, ${user?.name || 'Admin'}` : activeTab?.label}
@@ -61,7 +78,7 @@ export default function AdminDashboard() {
         {active === 'services' && <ServicesTab />}
         {active === 'packages' && <PackagesTab />}
         {active === 'pricing' && <PricingTab />}
-        {active === 'inquiries' && <InquiriesTab />}
+        {active === 'inquiries' && <InquiriesTab onReviewed={refreshUnreadInquiries} />}
         {active === 'reviews' && <ReviewsTab />}
         {active === 'portfolio' && <PortfolioTab />}
         {active === 'freeTools' && <FreeToolsTab />}

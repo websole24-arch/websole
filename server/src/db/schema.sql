@@ -240,6 +240,12 @@ drop trigger if exists inquiries_set_updated_at on inquiries;
 create trigger inquiries_set_updated_at before update on inquiries
   for each row execute function set_updated_at();
 
+-- Added after initial launch — safe to re-run on a DB that already has
+-- the table (schema.sql is applied wholesale by db/migrate.js). Tracks
+-- whether an admin has opened the inquiry, separate from `status`
+-- (which reflects where things stand with the customer, not who's seen it).
+alter table inquiries add column if not exists viewed_at timestamptz;
+
 -- reviews -----------------------------------------------------------------
 -- Customer-submitted reviews. `name`/`country` are copied from the
 -- submitting user's profile at write time (not client-supplied) so a
