@@ -487,7 +487,7 @@ export default function FreeTools() {
         badge="Free Utility Tools"
         title="Web design & developer"
         gradientWord="free tools"
-        description="A collection of complimentary utilities crafted by Studio to streamline your digital product development, SEO metadata, and design workflows."
+        description="A collection of complimentary utilities crafted by Web_Sole to streamline your digital product development, SEO metadata, and design workflows."
       />
 
       {/* Tool Selector Tabs */}

@@ -328,7 +328,7 @@ export default function Home() {
             Our Guarantee
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-ink">
-            Why companies <GradientText variant="signal">choose Studio</GradientText>
+            Why companies <GradientText variant="signal">choose Web_Sole</GradientText>
           </h2>
         </div>
 

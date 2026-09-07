@@ -44,7 +44,7 @@ export default function About() {
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 pb-24">
       <PageHeader
-        badge="About Studio"
+        badge="About Web_Sole"
         title="We engineer digital products with"
         gradientWord="craft & clarity"
         description="A modern web design & engineering studio building bespoke websites, apps, and brand systems for ambitious businesses worldwide."
@@ -58,7 +58,7 @@ export default function About() {
             Bridging international design excellence with local economic fairness.
           </h2>
           <p className="mt-4 text-sm sm:text-base leading-relaxed text-muted-light">
-            Founded with a conviction that digital craftsmanship should be accessible globally, Studio eliminates the traditional opacity of agency pricing. Whether you're a startup in Colombo or an enterprise in London, you receive the same world-class standard calibrated to your market.
+            Founded with a conviction that digital craftsmanship should be accessible globally, Web_Sole eliminates the traditional opacity of agency pricing. Whether you're a startup in Colombo or an enterprise in London, you receive the same world-class standard calibrated to your market.
           </p>
           <p className="mt-4 text-sm sm:text-base leading-relaxed text-muted-light">
             We operate as a focused, agile team — eliminating bloated overheads so every dollar of your budget directly fuels design quality and technical robustness.

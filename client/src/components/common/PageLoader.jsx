@@ -32,7 +32,7 @@ export default function PageLoader() {
 
         <div className="mt-6 flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-signal">
           <span className="h-1.5 w-1.5 rounded-full bg-signal animate-pulse" />
-          <span>Loading Studio</span>
+          <span>Loading Web_Sole</span>
         </div>
 
         {showSlowNotice && (

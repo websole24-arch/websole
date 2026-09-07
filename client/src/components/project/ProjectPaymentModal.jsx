@@ -35,7 +35,7 @@ export default function ProjectPaymentModal({ project, user, onClose, autoOpenWh
     `• Name: ${clientName}`,
     `• Email: ${clientEmail}`,
     ``,
-    `Hello Studio, I have created this project and would like to confirm the 50% advance payment details to begin!`,
+    `Hello Web_Sole, I have created this project and would like to confirm the 50% advance payment details to begin!`,
   ];
 
   const waText = encodeURIComponent(waLines.join('\n'));

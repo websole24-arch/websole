@@ -27,7 +27,7 @@ const DEFAULT_FREE_TOOLS_LINKS = [
 ];
 
 const companyLinks = [
-  { to: '/about', label: 'About Studio' },
+  { to: '/about', label: 'About Web_Sole' },
   { to: '/#process-details', label: 'Our Process' },
   { to: '/pricing', label: 'Country Pricing' },
   { to: '/portfolio', label: 'Featured Work' },
@@ -106,10 +106,10 @@ export default function Footer() {
           <div className="space-y-4">
             <Link to="/" className="inline-flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#12141C] to-slate-800 text-white shadow-sm">
-                <span className="font-display font-bold text-sm tracking-tight text-white">S</span>
+                <span className="font-display font-bold text-sm tracking-tight text-white">W</span>
               </div>
               <span className="font-display text-xl font-bold tracking-tight text-ink">
-                Studio<span className="text-signal">.</span>
+                Web_Sole<span className="text-signal">.</span>
               </span>
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-muted-light">
@@ -129,7 +129,7 @@ export default function Footer() {
         <div className="mt-16 flex flex-col gap-4 border-t border-ink/10 pt-8 text-xs text-muted-light sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-mono">© {new Date().getFullYear()} Studio Inc. All rights reserved.</span>
+            <span className="font-mono">© {new Date().getFullYear()} Web_Sole. All rights reserved.</span>
           </div>
           <p className="text-muted-light">
             Country-adapted honest pricing model with 50% milestone payments.

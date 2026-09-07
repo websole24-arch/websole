@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const LOAD_TIMEOUT_MS = 6000;
 
-const SITE_TITLE = 'Studio — Websites, UI/UX & Design, priced for your country';
+const SITE_TITLE = 'Web_Sole — Websites, UI/UX & Design, priced for your country';
 const SITE_DESCRIPTION =
   'Custom website development, UI/UX design, WordPress, Wix, and graphic design services with transparent, country-specific pricing.';
 
@@ -27,8 +27,8 @@ export default function Blog() {
   const timeoutRef = useRef(null);
 
   useEffect(() => {
-    document.title = 'Blog — Studio';
-    setMetaDescription('Read the latest articles, updates, and insights from Studio on our blog.');
+    document.title = 'Blog — Web_Sole';
+    setMetaDescription('Read the latest articles, updates, and insights from Web_Sole on our blog.');
 
     let canonical = document.querySelector('link[rel="canonical"]');
     const hadCanonical = Boolean(canonical);

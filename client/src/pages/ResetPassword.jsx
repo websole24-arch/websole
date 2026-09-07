@@ -73,10 +73,10 @@ export default function ResetPassword() {
         <div className="text-center">
           <Link to="/" className="inline-flex items-center gap-2.5">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-[#12141C] to-slate-800 text-white shadow-sm">
-              <span className="font-display font-bold text-base text-white">S</span>
+              <span className="font-display font-bold text-base text-white">W</span>
             </div>
             <span className="font-display text-2xl font-bold tracking-tight text-ink">
-              Studio<span className="text-signal">.</span>
+              Web_Sole<span className="text-signal">.</span>
             </span>
           </Link>
 

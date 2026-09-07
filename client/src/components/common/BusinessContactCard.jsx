@@ -7,7 +7,7 @@ export default function BusinessContactCard({ className = '' }) {
   const hours = import.meta.env.VITE_BUSINESS_HOURS || '';
 
   const rows = [
-    address && { icon: PinIcon, label: 'Studio Office', value: address },
+    address && { icon: PinIcon, label: 'Web_Sole Office', value: address },
     email && { icon: MailIcon, label: 'Email Inquiries', value: email, href: `mailto:${email}` },
     phone && { icon: PhoneIcon, label: 'Direct Line', value: phone, href: `tel:${phone.replace(/[^\d+]/g, '')}` },
     hours && { icon: ClockIcon, label: 'Operating Hours', value: hours },

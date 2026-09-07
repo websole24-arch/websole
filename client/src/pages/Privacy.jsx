@@ -8,7 +8,7 @@ export default function Privacy() {
         badge="Privacy"
         title="Privacy"
         gradientWord="Policy"
-        description="How Studio collects, uses, and safeguards client information and project data."
+        description="How Web_Sole collects, uses, and safeguards client information and project data."
       />
 
       <Reveal className="mt-8 rounded-3xl glass-card p-8 sm:p-12 space-y-8 text-sm leading-relaxed text-ink/90">

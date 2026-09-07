@@ -15,7 +15,7 @@ export default function Terms() {
         <section>
           <h2 className="font-display text-lg font-bold text-ink">1. Services & Engagement</h2>
           <p className="mt-2 text-muted-light">
-            Studio provides custom web development, UI/UX design, WordPress/Wix site creation, and brand design services. Specific deliverables, timeframes, and milestone schedules are outlined in the project quotation agreed upon prior to commencement.
+            Web_Sole provides custom web development, UI/UX design, WordPress/Wix site creation, and brand design services. Specific deliverables, timeframes, and milestone schedules are outlined in the project quotation agreed upon prior to commencement.
           </p>
         </section>
 
