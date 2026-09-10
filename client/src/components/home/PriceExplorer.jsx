@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useCountry } from '../../context/CountryContext';
 import client from '../../api/client';
 import useTilt from '../../hooks/useTilt';
@@ -44,6 +45,8 @@ export default function PriceExplorer() {
         .sort((a, b) => a.price - b.price),
     [pricing, activeService]
   );
+
+  const activeSlug = services.find((s) => s.id === activeService)?.slug;
 
   return (
     <div
@@ -105,11 +108,12 @@ export default function PriceExplorer() {
           rows.map((p, idx) => {
             const isFeatured = idx === 1 || rows.length === 1;
             return (
-              <div
+              <Link
                 key={p.id}
+                to={`/pricing${activeSlug ? `#${activeSlug}` : ''}`}
                 className={`flex items-center justify-between rounded-2xl p-4 transition-all duration-200 ${
                   isFeatured
-                    ? 'border border-signal/40 bg-gradient-to-r from-signal/15 to-white/5 shadow-inner'
+                    ? 'border border-signal/40 bg-gradient-to-r from-signal/15 to-white/5 shadow-inner hover:border-signal/70'
                     : 'border border-white/5 bg-white/5 hover:bg-white/10'
                 }`}
               >
@@ -130,7 +134,7 @@ export default function PriceExplorer() {
                     {p.price.toLocaleString()}
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
       </div>
