@@ -98,3 +98,6 @@ Notifications are not built — scoped in `TODO.md`.
   `db:migrate`/`seed`/the app suddenly can't reach the database after
   time away, check the Supabase dashboard for a "paused" banner before
   assuming it's a connection-string problem — unpausing is one click.
+
+
+done
